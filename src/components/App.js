@@ -99,9 +99,6 @@ function App() {
         />
         <ImagePopup card={selectedCard} onClose={closeAllPopups}/>        
       </div>
-
-      
-  
     </div>
   );
 }

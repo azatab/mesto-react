@@ -3,9 +3,9 @@ import api from '../utils/api'
 import Card from './Card'
 
 function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
-  const [userName, setUserName] = React.useState(null)
-  const [userDescription, setUserDescription] = React.useState(null)
-  const [userAvatar, setUserAvatar] = React.useState(null)
+  const [userName, setUserName] = React.useState('')
+  const [userDescription, setUserDescription] = React.useState('')
+  const [userAvatar, setUserAvatar] = React.useState('')
   const [cards, setCards] = React.useState([])
 
   React.useEffect(() => {
@@ -19,8 +19,6 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
     .catch((err) => console.log(err))
   }, [])
 
-  
-  
   return (
     <main>
       <section className="profile page__section">
