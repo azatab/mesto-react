@@ -1,6 +1,7 @@
 #Проектная работа №10
 
-![Logo](https://github.com/azatab/mesto-react/tree/main/src/images/logo-vect.svg)
+![Logo](https://azatab.github.io/mesto-react/static/media/logo-vect.bbe2a6ea.svg)
+
 
 ## Описание
 
