@@ -46,8 +46,6 @@ function App() {
     setSelectedCard({})
   }
 
-  console.log(currentUser)
-
   return (
     <div className="page">
       <div className="page__container">

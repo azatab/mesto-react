@@ -53,7 +53,7 @@ class Api {
     }).then(this._handleServerResponse);
   }
 
-  putLike(id) {
+  /*putLike(id) {
     return fetch(`${this._url}cards/likes/${id}`, {
       method: "PUT",
       headers: this._headers,
@@ -65,7 +65,7 @@ class Api {
       method: "DELETE",
       headers: this._headers,
     }).then(this._handleServerResponse);
-  }
+  }*/
 
   setAvatar(link) {
     return fetch(`${this._url}users/me/avatar`, {
@@ -74,6 +74,14 @@ class Api {
       body: JSON.stringify({
         avatar: link
       })
+    }).then(this._handleServerResponse);
+  }
+
+  changeLikeCardStatus(id, owner) {
+    const meth = owner ? "PUT" : "DELETE"
+    return fetch(`${this._url}cards/likes/${id}`, {
+      method: meth,
+      headers: this._headers,
     }).then(this._handleServerResponse);
   }
 }

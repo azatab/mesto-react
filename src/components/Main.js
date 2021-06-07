@@ -16,6 +16,19 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
     .catch((err) => console.log(err))
   }, [])
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(item => item._id === currentUser._id)
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+      setCards(state => state.map(c => c._id === card._id ? newCard : c))
+    })
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id).then(item => {
+      setCards(state => state.filter(c => c._id !== card._id))
+    })
+  }
+
   return (
     <main>
       <section className="profile page__section">
@@ -35,7 +48,14 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
 
       <section className="cards page__section">
         <ul className="cards__list">
-        {cards.map((card) => <Card key={card._id} card={card} onCardClick={onCardClick}/> )}
+        {cards.map((card) => <
+          Card 
+            key={card._id} 
+            card={card} 
+            onCardClick={onCardClick} 
+            onCardLike={handleCardLike} 
+            onCardDelete={handleCardDelete}/
+          > )}
         </ul>
       </section>
     </main>
