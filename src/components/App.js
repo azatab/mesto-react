@@ -57,6 +57,15 @@ function App() {
     .catch((err) => console.log(`Ошибка - ${err}`))
   }
 
+  function handleUpdateAvatar (inputValue) {
+    api.setUserAvatar(inputValue)
+    .then(data => {
+      setCurrentUser(data)
+      closeAllPopups()
+    })
+    .catch(err => console.log(err))
+  }
+
   return (
     <div className="page">
       <div className="page__container">
@@ -79,6 +88,7 @@ function App() {
           <EditAvatarPopup 
             isOpen={isEditAvatarPopupOpen} 
             onClose={closeAllPopups} 
+            onUpdateAvatar = {handleUpdateAvatar}
           />
 
           <PopupWithForm 

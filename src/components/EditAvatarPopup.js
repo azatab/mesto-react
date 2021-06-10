@@ -1,9 +1,14 @@
 import React from 'react'
 import PopupWithForm from './PopupWithForm'
 
-function EditAvatarPopup({...rest}) {
+function EditAvatarPopup({onUpdateAvatar,...rest}) {
+  const avatarUrl = React.useRef('')
+
   function handleSubmit(e) {
     e.preventDefault()
+    onUpdateAvatar({
+      avatar: avatarUrl.current.value
+    })
   }
 
   return (
@@ -12,7 +17,7 @@ function EditAvatarPopup({...rest}) {
         title={'Обновить аватар'}
         children={
           <>
-            <input className="form__input" type="url" id="input-avatar-link" aria-label="ссылка" placeholder="Ссылка на аватар пользователя" name="link" required />
+            <input ref={avatarUrl} className="form__input" type="url" id="input-avatar-link" aria-label="ссылка" placeholder="Ссылка на аватар пользователя" name="link" required />
               <span className="input-avatar-link-error form__input-error"></span>
           </>
         }

@@ -67,12 +67,13 @@ class Api {
     }).then(this._handleServerResponse);
   }*/
 
-  setAvatar(link) {
+  setUserAvatar(data) {
+    console.log(data.avatar)
     return fetch(`${this._url}users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: link
+        avatar: data.avatar
       })
     }).then(this._handleServerResponse);
   }
