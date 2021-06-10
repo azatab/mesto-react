@@ -43,8 +43,6 @@ function EditProfilePopup ({onUpdateUser, ...rest}) {
       buttonLabel={'Сохранить'}
       //isOpen = {isEditProfilePopupOpen}
       //onClose = {closeAllPopups}
-      //isOpen
-      //onClose
       onSubmit = {handleSubmit}
       {...rest}
     />

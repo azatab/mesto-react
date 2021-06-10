@@ -40,7 +40,7 @@ class Api {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        name: data.place,
+        name: data.name,
         link: data.link
       })
     }).then(this._handleServerResponse)
@@ -68,7 +68,6 @@ class Api {
   }*/
 
   setUserAvatar(data) {
-    console.log(data.avatar)
     return fetch(`${this._url}users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
