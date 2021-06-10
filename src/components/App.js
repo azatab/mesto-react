@@ -6,6 +6,8 @@ import ImagePopup from './ImagePopup';
 import React from 'react'
 import api from '../utils/api'
 import {CurrentUserContext} from '../contexts/CurrentUserContext'
+import EditProfilePopup from './EditProfilePopup'
+import EditAvatarPopup from './EditAvatarPopup'
 //import './App.css';
 
 function App() {
@@ -46,6 +48,15 @@ function App() {
     setSelectedCard({})
   }
 
+  function handleUpdateUser (inputValues) {
+    api.setUserInfo(inputValues)
+    .then((userData) => {
+      setCurrentUser(userData)
+      closeAllPopups()
+    })
+    .catch((err) => console.log(`Ошибка - ${err}`))
+  }
+
   return (
     <div className="page">
       <div className="page__container">
@@ -58,21 +69,18 @@ function App() {
             onCardClick = {handleCardClick}
             />
           <Footer />
-          <PopupWithForm 
-            name={'edit'}
-            title={'Редактировать профиль'}
-            children={
-              <>
-                <input className="form__input" type="text" id="input-name" aria-label="имя" placeholder="Имя" name="name" minLength="2" maxLength="40" required />
-                  <span className="input-name-error form__input-error"></span>
-                  <input className="form__input" type="text" id="input-job" aria-label="работа" placeholder="Работа" name="job" minLength="2" maxLength="200" required />
-                  <span className="input-job-error form__input-error"></span>
-              </>
-            }
-            buttonLabel={'Сохранить'}
-            isOpen = {isEditProfilePopupOpen}
+          
+          <EditProfilePopup 
+            isOpen = {isEditProfilePopupOpen} 
             onClose = {closeAllPopups}
+            onUpdateUser = {handleUpdateUser} 
           />
+
+          <EditAvatarPopup 
+            isOpen={isEditAvatarPopupOpen} 
+            onClose={closeAllPopups} 
+          />
+
           <PopupWithForm 
             name={'add'}
             title={'Новое место'}
@@ -95,19 +103,7 @@ function App() {
             onClose = {closeAllPopups}
             
           />
-          <PopupWithForm 
-            name={'avatar-update'}
-            title={'Обновить аватар'}
-            children={
-              <>
-                <input className="form__input" type="url" id="input-avatar-link" aria-label="ссылка" placeholder="Ссылка на аватар пользователя" name="link" required />
-                  <span className="input-avatar-link-error form__input-error"></span>
-              </>
-            }
-            buttonLabel={'Сохранить'}
-            isOpen = {isEditAvatarPopupOpen}
-            onClose = {closeAllPopups}
-          />
+          
           <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
         </CurrentUserContext.Provider>        
       </div>
