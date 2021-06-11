@@ -2,8 +2,8 @@ import React from 'react'
 import PopupWithForm from './PopupWithForm'
 
 function AddPlacePopup({onAddPlace, isOpen,...rest}) {
-  const [name, setName] = React.useState()
-  const [link, setLink] = React.useState()
+  const [name, setName] = React.useState('')
+  const [link, setLink] = React.useState('')
 
   React.useEffect(() => {
     setName('')
@@ -30,19 +30,16 @@ function AddPlacePopup({onAddPlace, isOpen,...rest}) {
     <PopupWithForm 
       name={'add'}
       title={'Новое место'}
-      children={
-        <>
-          <input className="form__input" type="text" id="input-place-name" aria-label="Название" placeholder="Название" name="place" minLength="2" maxLength="30" required value={name || ''} onChange={handleNameChange}/>
-          <span className="input-place-name-error form__input-error"></span>
-          <input className="form__input" type="url" id="input-image-link" aria-label="ссылка" placeholder="Ссылка на картинку" name="link" required value={link || ''} onChange={handleLinkChange}/>
-          <span className="input-image-link-error form__input-error"></span>
-        </>
-      }
       buttonLabel = {'Создать'}
       onSubmit = {handleSubmit}
       {...rest}
       isOpen = {isOpen}
-    />
+      >
+        <input className="form__input" type="text" id="input-place-name" aria-label="Название" placeholder="Название" name="place" minLength="2" maxLength="30" required value={name || ''} onChange={handleNameChange}/>
+        <span className="input-place-name-error form__input-error"></span>
+        <input className="form__input" type="url" id="input-image-link" aria-label="ссылка" placeholder="Ссылка на картинку" name="link" required value={link || ''} onChange={handleLinkChange}/>
+        <span className="input-image-link-error form__input-error"></span>
+    </PopupWithForm>
   )
 }
 
