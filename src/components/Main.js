@@ -24,14 +24,16 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards, onCa
 
       <section className="cards page__section">
         <ul className="cards__list">
-        {cards.map((card) => <
+        {cards.map((card) => (<
           Card 
             key={card._id} 
             card={card} 
             onCardClick={onCardClick} 
             onCardLike={onCardLike} 
-            onCardDelete={onCardDelete}/
-          > )}
+            onCardDelete={onCardDelete}
+          />
+        ) 
+        )}
         </ul>
       </section>
     </main>
