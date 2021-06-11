@@ -15,7 +15,9 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false)
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false)
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false)
+  const [isConfirmationPopupOpen, setConfirmationPopupOpen] = React.useState(false)
   const [selectedCard, setSelectedCard] = React.useState({})
+  const [cardToDelete, setCardToDelete] = React.useState({})
   const [cards, setCards] = React.useState([])
 
   React.useEffect(() => {
@@ -36,10 +38,12 @@ function App() {
     .catch((err) => console.log(err))
   }
 
-  function handleCardDelete(card) {
-    api.deleteCard(card._id)
-    .then(item => {
-      setCards(state => state.filter(c => c._id !== card._id))
+  function handleCardDeleteSubmit(e) {
+    e.preventDefault()
+    api.deleteCard(cardToDelete._id)
+    .then(() => {
+      setCards(state => state.filter(c => c._id !== cardToDelete._id))
+      closeAllPopups()
     })
     .catch((err) => console.log(err))
   }
@@ -64,6 +68,7 @@ function App() {
     setEditProfilePopupOpen(false)
     setAddPlacePopupOpen(false)
     setEditAvatarPopupOpen(false)
+    setConfirmationPopupOpen(false)
     setSelectedCard({})
   }
 
@@ -92,6 +97,11 @@ function App() {
       closeAllPopups()
     })
     .catch(err => console.log(err))
+  }
+
+  function handleCardDelete (card) {
+    setConfirmationPopupOpen(true)
+    setCardToDelete(card)
   }
 
   return (
@@ -129,7 +139,9 @@ function App() {
           />
 
           <ConfirmationPopup 
+            isOpen = {isConfirmationPopupOpen}
             onClose = {closeAllPopups}
+            onSubmit = {handleCardDeleteSubmit}
           />
           
           <ImagePopup card={selectedCard} onClose={closeAllPopups}/>

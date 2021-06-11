@@ -1,13 +1,14 @@
 import React from 'react'
 import PopupWithForm from './PopupWithForm'
 
-function ConfirmationPopup ({onClose}) {
+function ConfirmationPopup ({...rest}) {
   return (
     <PopupWithForm 
       name={'confirm-delete'}
       title={'Вы уверены?'}
       buttonLabel={'Да'}
-      onClose = {onClose}
+      //onClose = {onClose}
+      {...rest}
     />
   )
 }
