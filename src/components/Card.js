@@ -27,7 +27,7 @@ function Card ({card, onCardClick, onCardLike, onCardDelete}) {
   }
 
   return (
-    <li className="cards__item" key={card._id}>
+    <li className="cards__item">
       <button className={cardDeleteButtonClassName} type="button" aria-label="удалить карточку" onClick={handleDeleteClick} ></button>
       <img src={card.link} className="cards__image" alt={card.name} onClick={handleClick}/>
       <h2 className="cards__title">{card.name}</h2>
