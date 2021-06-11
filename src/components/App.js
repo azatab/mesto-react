@@ -1,18 +1,17 @@
 import Header from './Header'
 import Main from './Main'
 import Footer from './Footer'
-import PopupWithForm from './PopupWithForm';
-import ImagePopup from './ImagePopup';
+import ImagePopup from './ImagePopup'
 import React from 'react'
 import api from '../utils/api'
 import {CurrentUserContext} from '../contexts/CurrentUserContext'
 import EditProfilePopup from './EditProfilePopup'
 import EditAvatarPopup from './EditAvatarPopup'
-import AddPlacePopup from './AddPlacePopup';
-//import './App.css';
+import AddPlacePopup from './AddPlacePopup'
+import ConfirmationPopup from './ConfirmationPopup'
 
 function App() {
-  const [currentUser, setCurrentUser] = React.useState('')
+  const [currentUser, setCurrentUser] = React.useState({})
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false)
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false)
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false)
@@ -20,33 +19,30 @@ function App() {
   const [cards, setCards] = React.useState([])
 
   React.useEffect(() => {
-    Promise.all([api.getCards()])
-    .then(([cardsObj]) => {
+    Promise.all([api.getCards(), api.getUserInfo()])
+    .then(([cardsObj, userData]) => {
       setCards(cardsObj)
+      setCurrentUser(userData)
     })
     .catch((err) => console.log(err))
   }, [])
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(item => item._id === currentUser._id)
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+    api.changeLikeCardStatus(card._id, !isLiked)
+    .then((newCard) => {
       setCards(state => state.map(c => c._id === card._id ? newCard : c))
     })
+    .catch((err) => console.log(err))
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card._id).then(item => {
+    api.deleteCard(card._id)
+    .then(item => {
       setCards(state => state.filter(c => c._id !== card._id))
     })
-  }
-
-  React.useEffect(() => {
-    Promise.all([api.getUserInfo()])
-    .then(([userData]) => {
-      setCurrentUser(userData)
-    })
     .catch((err) => console.log(err))
-  }, [])
+  }
   
   function handleEditProfileClick() {
     setEditProfilePopupOpen(true)
@@ -132,12 +128,8 @@ function App() {
             onAddPlace = {handleAddPlaceSubmit}
           />
 
-          <PopupWithForm 
-            name={'confirm-delete'}
-            title={'Вы уверены?'}
-            buttonLabel={'Да'}
+          <ConfirmationPopup 
             onClose = {closeAllPopups}
-            
           />
           
           <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
