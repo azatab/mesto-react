@@ -10,7 +10,7 @@ function EditProfilePopup ({onUpdateUser, ...rest}) {
   React.useEffect(() => {
     setName(currentUser.name)
     setDescription(currentUser.about)
-  }, [currentUser])
+  }, [currentUser, rest.isOpen])
 
   function handleNameChange(e) {
     setName(e.target.value)
@@ -41,8 +41,6 @@ function EditProfilePopup ({onUpdateUser, ...rest}) {
         </>
       }
       buttonLabel={'Сохранить'}
-      //isOpen = {isEditProfilePopupOpen}
-      //onClose = {closeAllPopups}
       onSubmit = {handleSubmit}
       {...rest}
     />
